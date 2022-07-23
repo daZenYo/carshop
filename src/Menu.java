@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Menu {
-    ArrayList<Client> Clients = new ArrayList<Client>();
-    ArrayList<Vehicle> Vehicles = new ArrayList<Vehicle>();
+    ArrayList<Vehicle> Vehicles = new ArrayList<>();
     boolean exit = false;
 
     public void runMenu() {
@@ -29,7 +28,7 @@ public class Menu {
         int mp = -1;
         while(mp < 0 || mp > 6) {
             try {
-                System.out.println("\nEnter the selected menu point: ");
+                System.out.print("\nEnter the selected menu point: ");
                 mp = Integer.parseInt(scanner.nextLine());
             }
             catch(NumberFormatException e) {
@@ -61,39 +60,19 @@ public class Menu {
                 System.out.print("ID number: ");
                 int id = scanner.nextInt();
                 scanner.nextLine();
-                boolean hasCar = false;
 
-                for (int i = 0; i < Clients.size(); i++) {
-                    while (Clients.get(i).id == id) {
-                        System.out.print("This ID number is already taken! Please enter a new one: ");
-                        id = scanner.nextInt();
-                        scanner.nextLine();
-                    }
-                }
-
-                Client client = new Client(name, age, id);
-                Clients.add(client);
+                Client.addEntry(name, age, id);
 
                 System.out.println("\n");
                 break;
 
             case 2:
                 System.out.println("---------------Delete entry---------------");
-                System.out.print("Type in the name you'd like to delete: ");
-                String name_temp = scanner.nextLine();
+                System.out.print("Type in the ID number of the user you'd like to delete: ");
+                int id_temp = scanner.nextInt();
+                scanner.nextLine();
 
-                for(int i=0; i<Clients.size(); i++) {
-                    while(!Clients.get(i).name.equals(name_temp)) {
-                        System.out.print("This user does not exist! Please enter the name again: ");
-                        name_temp = scanner.nextLine();
-                    }
-                }
-
-                for(int i=0; i<Clients.size(); i++) {
-                    if(Clients.get(i).name.equals(name_temp)) {
-                        Clients.remove(i);
-                    }
-                }
+                Client.deleteEntry(id_temp);
 
                 System.out.println("\n");
                 break;
@@ -101,18 +80,7 @@ public class Menu {
                 System.out.println("---------------List entries---------------");
                 System.out.println("Listing entries...");
 
-                boolean isEmptyClient = Clients.isEmpty();
-                if(isEmptyClient) {
-                    System.out.println("No entries found!");
-                } else {
-                    for (int i=0; i<Clients.size(); i++) {
-                        System.out.println("Client #"+(i+1)+": "+Clients.get(i).name+", "
-                                                                +Clients.get(i).age+" years old"
-                                                                +"\nID number: "+Clients.get(i).id
-                                                                +"\nOwns a car? "+Clients.get(i).hasCar
-                                                                +"\n");
-                    }
-                }
+                Client.listEntries();
 
                 System.out.println("\n");
                 break;
@@ -132,14 +100,7 @@ public class Menu {
                 int year = scanner.nextInt();
                 scanner.nextLine();
 
-                Vehicle car = new Vehicle(model, make, year, owner_id);
-                Vehicles.add(car);
-
-                for(int i=0; i<Clients.size(); i++) {
-                    if(Clients.get(i).id == owner_id) {
-                        Clients.get(i).hasCar = true;
-                    }
-                }
+                Vehicle.buyVehicle(model, make, year, owner_id);
 
                 System.out.println("\n");
                 break;
@@ -156,18 +117,7 @@ public class Menu {
                 System.out.print("Make: ");
                 make = scanner.nextLine();
 
-                for(int i=0; i<Clients.size(); i++) {
-                    if(Clients.get(i).id == owner_id) {
-                        Clients.get(i).hasCar = false;
-                        for(int j=0; j<Vehicles.size(); j++) {
-                            if((Vehicles.get(j).model == model) && (Vehicles.get(j).make == make)) {
-                                Vehicles.remove(j);
-                            }
-                        }
-                    }
-                }
-
-                System.out.println("Car sold!");
+                Vehicle.sellVehicle(owner_id, model, make);
 
                 System.out.println("\n");
                 break;
@@ -176,20 +126,7 @@ public class Menu {
                 System.out.println("---------------List car owners---------------");
                 System.out.println("Listing car owners list...");
 
-                boolean isEmptyVehicle = Vehicles.isEmpty();
-                if(isEmptyVehicle) {
-                    System.out.println("No entries found!");
-                } else {
-                    for(int i=0; i<Clients.size(); i++) {
-                        if(Clients.get(i).hasCar) {
-                            for(int j=0; j<Vehicles.size(); j++) {
-                                if(Clients.get(i).id == Vehicles.get(j).owner_id) {
-                                    System.out.println(Clients.get(i).name+" owns a "+Vehicles.get(j).model+" "+Vehicles.get(j).make);
-                                }
-                            }
-                        }
-                    }
-                }
+                Vehicle.listOwners();
 
                 System.out.println("\n");
                 break;
