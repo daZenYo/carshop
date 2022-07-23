@@ -31,14 +31,15 @@ public class Vehicle {
      * @param owner_id - the vehicle's owner's id
      */
     public static void buyVehicle(String model, String make, int year, int owner_id) {
-        Vehicle car = new Vehicle(model, make, year, owner_id);
-        Vehicles.add(car);
-
         for(int i=0; i<Client.getList().size(); i++) {
             if(Client.getList().get(i).id == owner_id) {
                 Client.getList().get(i).hasCar = true;
+                Client.getList().get(i).numberOfCars++;
             }
         }
+
+        Vehicle car = new Vehicle(model, make, year, owner_id);
+        Vehicles.add(car);
     }
 
     /**
@@ -50,10 +51,16 @@ public class Vehicle {
     public static void sellVehicle(int owner_id, String model, String make) {
         for(int i=0; i<Client.getList().size(); i++) {  //Not the prettiest, but it works
             if(Client.getList().get(i).id == owner_id) {
-                Client.getList().get(i).hasCar = false;
                 for(int j=0; j<Vehicles.size(); j++) {
-                    Vehicles.remove(j);
-                    System.out.println("Car sold!");
+                    if((Vehicles.get(j).model).equals(model) && (Vehicles.get(j).make).equals(make)) {
+                        Vehicles.remove(j);
+                        System.out.println("Car sold!");
+                        if(Client.getList().get(i).numberOfCars!=0) {
+                            Client.getList().get(i).numberOfCars--;
+                        } else {
+                            Client.getList().get(i).hasCar = false;
+                        }
+                    }
                 }
             }
         }

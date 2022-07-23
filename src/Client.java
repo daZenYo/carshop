@@ -7,6 +7,7 @@ public class Client {
     String name;
     int age;
     int id;
+    int numberOfCars;
     boolean hasCar = false;
     static Scanner scanner = new Scanner(System.in);
 
