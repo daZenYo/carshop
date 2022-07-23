@@ -60,6 +60,8 @@ public class Vehicle {
                         } else {
                             Client.getList().get(i).hasCar = false;
                         }
+                    } else {
+                        System.out.println("This vehicle does not exist!");
                     }
                 }
             }

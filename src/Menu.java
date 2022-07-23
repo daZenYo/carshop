@@ -1,7 +1,7 @@
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 public class Menu {
-    ArrayList<Vehicle> Vehicles = new ArrayList<>();
     boolean exit = false;
 
     public void runMenu() {
@@ -53,7 +53,7 @@ public class Menu {
                 System.out.println("Please enter your credentials.");
 
                 System.out.print("Name: ");
-                String name = scanner.nextLine();
+                String name = scanner.nextLine().toUpperCase();
                 System.out.print("Age: ");
                 int age = scanner.nextInt();
                 scanner.nextLine();
@@ -93,9 +93,9 @@ public class Menu {
 
                 System.out.println("Which car would you like to buy?");
                 System.out.print("Model: ");
-                String model = scanner.nextLine();
+                String model = scanner.nextLine().toUpperCase();
                 System.out.print("Make: ");
-                String make = scanner.nextLine();
+                String make = scanner.nextLine().toUpperCase();
                 System.out.print("Year: ");
                 int year = scanner.nextInt();
                 scanner.nextLine();
@@ -113,9 +113,9 @@ public class Menu {
 
                 System.out.println("Which car would you like to sell?");
                 System.out.print("Model: ");
-                model = scanner.nextLine();
+                model = scanner.nextLine().toUpperCase();
                 System.out.print("Make: ");
-                make = scanner.nextLine();
+                make = scanner.nextLine().toUpperCase();
 
                 Vehicle.sellVehicle(owner_id, model, make);
 
