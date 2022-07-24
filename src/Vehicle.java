@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Vehicle {
 
@@ -55,13 +54,8 @@ public class Vehicle {
                     if((Vehicles.get(j).model).equals(model) && (Vehicles.get(j).make).equals(make)) {
                         Vehicles.remove(j);
                         System.out.println("Car sold!");
-                        if(Client.getList().get(i).numberOfCars!=0) {
-                            Client.getList().get(i).numberOfCars--;
-                        } else {
-                            Client.getList().get(i).hasCar = false;
-                        }
-                    } else {
-                        System.out.println("This vehicle does not exist!");
+                        Client.getList().get(i).numberOfCars--;
+                        if(Client.getList().get(i).numberOfCars == 0) { Client.getList().get(i).hasCar = false; }
                     }
                 }
             }
@@ -80,12 +74,24 @@ public class Vehicle {
                 if(Client.getList().get(i).hasCar) {
                     for(int j=0; j<Vehicles.size(); j++) {
                         if(Vehicles.get(j).owner_id == Client.getList().get(i).id) {
-                            System.out.println(Client.getList().get(i).name+" owns a "+Vehicles.get(j).model+" "+Vehicles.get(j).make);
+                            System.out.println(Client.getList().get(i).name+" owns a "
+                                                +Vehicles.get(j).model+" "
+                                                +Vehicles.get(j).make);
                         }
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Load test values into the program to make testing easier.
+     */
+    public static void loadTestValues() {
+        Vehicle.buyVehicle("chevrolet", "camaro", 2014, 1);
+        Vehicle.buyVehicle("ferrari", "unit", 2023, 2);
+        Vehicle.buyVehicle("bmw", "e30", 2002, 2);
+        System.out.println("Vehicle test values initialized!");
     }
 
 }

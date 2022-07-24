@@ -86,4 +86,13 @@ public class Client {
         }
     }
 
+    /**
+     * Load test values into the program to make testing easier.
+     */
+    public static void loadTestValues() {
+        Client.addEntry("bence", 22, 1);
+        Client.addEntry("reni", 20, 2);
+        System.out.println("Client test values initialized!");
+    }
+
 }

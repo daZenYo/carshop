@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 public class Menu {
     boolean exit = false;
@@ -21,12 +19,13 @@ public class Menu {
         System.out.println("4) Buy a vehicle");
         System.out.println("5) Sell a vehicle");
         System.out.println("6) List car owners");
+        System.out.println("7) Load test values");
     }
 
     private int getMP() {
         Scanner scanner = new Scanner(System.in);
         int mp = -1;
-        while(mp < 0 || mp > 6) {
+        while(mp < 0 || mp > 9) {
             try {
                 System.out.print("\nEnter the selected menu point: ");
                 mp = Integer.parseInt(scanner.nextLine());
@@ -53,7 +52,7 @@ public class Menu {
                 System.out.println("Please enter your credentials.");
 
                 System.out.print("Name: ");
-                String name = scanner.nextLine().toUpperCase();
+                String name = scanner.nextLine();
                 System.out.print("Age: ");
                 int age = scanner.nextInt();
                 scanner.nextLine();
@@ -93,9 +92,9 @@ public class Menu {
 
                 System.out.println("Which car would you like to buy?");
                 System.out.print("Model: ");
-                String model = scanner.nextLine().toUpperCase();
+                String model = scanner.nextLine();
                 System.out.print("Make: ");
-                String make = scanner.nextLine().toUpperCase();
+                String make = scanner.nextLine();
                 System.out.print("Year: ");
                 int year = scanner.nextInt();
                 scanner.nextLine();
@@ -113,9 +112,9 @@ public class Menu {
 
                 System.out.println("Which car would you like to sell?");
                 System.out.print("Model: ");
-                model = scanner.nextLine().toUpperCase();
+                model = scanner.nextLine();
                 System.out.print("Make: ");
-                make = scanner.nextLine().toUpperCase();
+                make = scanner.nextLine();
 
                 Vehicle.sellVehicle(owner_id, model, make);
 
@@ -127,6 +126,16 @@ public class Menu {
                 System.out.println("Listing car owners list...");
 
                 Vehicle.listOwners();
+
+                System.out.println("\n");
+                break;
+
+            case 7:
+                System.out.println("---------------Load test values---------------");
+                System.out.println("Loading test values...");
+
+                Client.loadTestValues();
+                Vehicle.loadTestValues();
 
                 System.out.println("\n");
                 break;
